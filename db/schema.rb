@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20171022192831) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.decimal "price", precision: 12, scale: 2
@@ -21,7 +24,7 @@ ActiveRecord::Schema.define(version: 20171022192831) do
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.integer "product_id"
+    t.bigint "product_id"
     t.string "user"
     t.integer "rating"
     t.text "body"
@@ -30,4 +33,5 @@ ActiveRecord::Schema.define(version: 20171022192831) do
     t.index ["product_id"], name: "index_reviews_on_product_id"
   end
 
+  add_foreign_key "reviews", "products"
 end
